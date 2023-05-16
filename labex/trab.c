@@ -3,7 +3,7 @@
 
 int main (){
  char posicoes[3][3];
- char simb[3], sgameon[3], sj[3],sk[3];
+ char simb, sgameon[3], sj[3],sk[3];
  int gameon = 1, vitoria = 0;
  int i, j, k;
  int escolha_j, escolha_k;
@@ -20,13 +20,14 @@ int main (){
     while (1){
         printf ("Escolha seu simbolo (X ou O):\n");
         fflush(stdin);
-        fgets (simb, 3, stdin);
-        if(simb[0] == 'x' || simb[0] == 'X'){
-            simb[0] = 'X';
+        simb = getchar();
+        fflush(stdin);
+        if(simb == 'x' || simb == 'X'){
+            simb = 'X';
             break;
         }
-        else if(simb[0] == 'o' || simb[0] == 'O'){
-            simb[0] = 'O';
+        else if(simb == 'o' || simb == 'O'){
+            simb = 'O';
             break;
         }
             printf("Erro -> Símbolo incorreto\n");
@@ -41,14 +42,21 @@ int main (){
     k=0;
 
     for(i=1;i<10;i++){
-        printf("Rodada %d. Vez de %c.\n",i,simb[0]);
-        printf("Digite a posição desejada:\n (1,2,3)Linha\n (1,2,3)Coluna\n");
+        printf("Rodada %d. Vez de %c.\n",i,simb);
+        printf("Digite a posição desejada:\n (1,2,3)Linha\n");
         fflush(stdin);
         fgets(sj,3,stdin);
         fflush(stdin);
+        printf("(1,2,3)Coluna\n");
         fgets(sk,3,stdin);
         j = atoi(sj) - 1;
         k = atoi(sk) - 1;
+
+        if(j>3 || k>3 || j<0 || k<0) {
+            printf("Erro -> Numero invalido!\n");
+            i--;
+            continue;
+        }
 
         if(posicoes[j][k] == 'X' || posicoes[j][k] == 'O'){
             printf("Erro -> Posicao ja preenchida!\n");
@@ -56,15 +64,15 @@ int main (){
             continue;
         }
         else
-            posicoes[j][k] = simb[0];
+            posicoes[j][k] = simb;
 
 
         //antes da quinta jogada, n tem como ganhar
         if(i < 5) {
-            if(simb[0] == 'X')
-                simb[0] = 'O';
+            if(simb == 'X')
+                simb = 'O';
             else
-                simb[0] = 'X';
+                simb = 'X';
             continue;
 
         }
@@ -104,15 +112,15 @@ int main (){
         }
 
         //troca de time no fim do turno
-        if(simb[0] == 'X')
-            simb[0] = 'O';
+        if(simb == 'X')
+            simb = 'O';
         else
-            simb[0] = 'X';
+            simb = 'X';
     }
 
     if(vitoria == 1){
         printf("======================================================\n");
-        printf("O JOGADOR %c VENCEU!\n", simb[0]);
+        printf("O JOGADOR %c VENCEU!\n", simb);
         printf("======================================================\n");
         }else
             printf("DEU VELHA!\n");
