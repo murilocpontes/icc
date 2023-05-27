@@ -1,11 +1,41 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// int conditiontest (char posicoes[3][3], int j, int k) {
+//      if(posicoes[j][0] == posicoes[j][1] && posicoes[j][0] == posicoes [j][2]){
+//             return 1;
+//         }    
+
+//         if(posicoes[0][k] == posicoes[1][k] && posicoes[0][k] == posicoes [2][k]){
+//             return 1;
+//         }
+
+//         if(j!=1 && k!=1 && k!=j)//fowardslash
+//             if(posicoes[0][2] == posicoes[1][1] && posicoes[0][2] == posicoes [2][0]){
+//                 return 1;
+//             }
+        
+//         if(j!=1 && k!=1 && k==j)//backslash
+//              if(posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes [2][2]){
+//                 return 1;
+//             }
+        
+
+//         if(j==1 && k==1){  //ambas diagonais
+//             if(posicoes[0][2] == posicoes[1][1] && posicoes[0][2] == posicoes [2][0]){
+//                 return 1;
+//             }
+//             if(posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes [2][2]){
+//                 return 1;
+//             }
+//         }
+// }
+
 int main (){
  char posicoes[3][3];
  char simb, sgameon[3], sj[3],sk[3];
  int gameon = 1, vitoria = 0;
- int i, j, k;
+ int i, j, k, l, m;
  int escolha_j, escolha_k;
 
  while (gameon){
@@ -13,6 +43,7 @@ int main (){
     fflush(stdin);
     fgets(sgameon, 3, stdin);
     gameon = atoi(sgameon);
+    system("clear");
 
     if (gameon==0)
         break;
@@ -24,10 +55,12 @@ int main (){
         fflush(stdin);
         if(simb == 'x' || simb == 'X'){
             simb = 'X';
+            system("clear");
             break;
         }
         else if(simb == 'o' || simb == 'O'){
             simb = 'O';
+            system("clear");
             break;
         }
             printf("Erro -> Símbolo incorreto\n");
@@ -63,9 +96,27 @@ int main (){
             i--;
             continue;
         }
-        else
+        else {
             posicoes[j][k] = simb;
-
+            for(l=0;l<3;l++) {
+                for(m=0;m<3;m++){
+                    if(posicoes [l][m] == 'e'){
+                        if(m==0 || m==1) 
+                            printf("   │");   
+                        else
+                            printf("   \n");
+                    }
+                    else {
+                        if(m==0 || m==1) 
+                            printf(" %c │", posicoes[l][m]);   
+                        else
+                            printf(" %c \n", posicoes[l][m]);
+                    }
+                }
+                if (l<2)
+                    printf("───┼───┼───\n");
+            }
+        }
 
         //antes da quinta jogada, n tem como ganhar
         if(i < 5) {
@@ -76,7 +127,7 @@ int main (){
             continue;
 
         }
-        
+        // vitoria = conditiontest(posicoes[3][3], j, k);
         if(posicoes[j][0] == posicoes[j][1] && posicoes[j][0] == posicoes [j][2]){
             vitoria = 1;
             break;
@@ -116,6 +167,7 @@ int main (){
             simb = 'O';
         else
             simb = 'X';
+        system("cls");
     }
 
     if(vitoria == 1){
