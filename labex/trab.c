@@ -17,12 +17,12 @@ int conditiontest(char posicoes[3][3], int j, int k){
             return 1;
         
         if(j==1 && k==1){  //ambas diagonais
-            if(posicoes[0][2] == posicoes[1][1] && posicoes[0][2] == posicoes [2][0]){
+            if(posicoes[0][2] == posicoes[1][1] && posicoes[0][2] == posicoes [2][0])
                 return 1;
-            }
-            if(posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes [2][2]){
+                
+            if(posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes [2][2])
                 return 1;
-            }
+            
         }
 }
 
@@ -71,7 +71,7 @@ int main(){
             printf ("Escolha seu simbolo (X ou O):\n");
             fflush(stdin);
             simb = getchar();
-            getchar(); // pegar o \n (fflush n ta legal)
+            getchar(); // pegar o \n 
             if(simb == 'x' || simb == 'X'){
                 simb = 'X';
                 system("clear");
@@ -116,6 +116,7 @@ int main(){
             else {
                 posicoes[j][k] = simb;
                 system("clear");
+
                 tabuleiro(posicoes);
 
                 //antes da quinta jogada, n tem como ganhar
@@ -128,6 +129,7 @@ int main(){
                 }
 
                 vitoria = conditiontest(posicoes, j, k);
+                
                 if(vitoria == 1)
                     break;
 
