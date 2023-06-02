@@ -13,12 +13,17 @@ int main(){
         fgets(sgameon, 3, stdin);
         gameon = atoi(sgameon);
         system("clear");
-
+        
+        if (gameon != 0 && gameon != 1){
+            printf("Erro -> Simbolo incorreto\n");
+            gameon = 1;
+            continue;
+        }
 
         if (gameon==0)
             break;
         
-        while (1){
+        while (1){ 
             printf ("Escolha seu simbolo (X ou O):\n");
             fflush(stdin);
             simb = getchar();
@@ -38,7 +43,7 @@ int main(){
         //inicializa a matriz com ' ' em todas as posicoes
         for(i=0;i<3;i++){
             for (j=0;j<3;j++){
-                posicoes[i][j] = ' ';
+                posicoes[i][j] = 32;
             }
         }
 
@@ -89,21 +94,22 @@ int main(){
                     continue;
                 }
 
-            for (i=0; i<3; i++){
-                if ((posicoes[i][0] == posicoes[i][1]) && (posicoes[i][0]==posicoes[i][2])&&((posicoes[i][0] == 'X')||(posicoes[i][0] == 'O'))){
-                    vitoria =1;
+                for (i=0; i<3; i++){
+                    if ((posicoes[i][0] == posicoes[i][1]) && (posicoes[i][0]==posicoes[i][2])&&((posicoes[i][0] == 'X')||(posicoes[i][0] == 'O')))
+                        vitoria =1;
+                    
                 }
-            }
-            for (j=0; j<3; j++){
-                if ((posicoes[0][j] == posicoes[1][j]) && (posicoes[0][j]==posicoes[2][j]) && ((posicoes[0][j] == 'X')||(posicoes[0][j] == 'O'))){
+                for (j=0; j<3; j++){
+                    if ((posicoes[0][j] == posicoes[1][j]) && (posicoes[0][j]==posicoes[2][j]) && ((posicoes[0][j] == 'X')||(posicoes[0][j] == 'O')))
+                        vitoria = 1;
+                    
+                }
+                if(((posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes[2][2]) || (posicoes[2][0] == posicoes[1][1] && posicoes[2][0] == posicoes[0][2]))
+                &&((posicoes[1][1] == 'X')||(posicoes[1][1] == 'O')))
                     vitoria = 1;
-                }
-            }
-            if(((posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes[2][2]) || (posicoes[2][0] == posicoes[1][1] && posicoes[2][0] == posicoes[0][2]))&&((posicoes[1][1] == 'X')||(posicoes[1][1] == 'O'))){
-                vitoria = 1;
-            }
-            if(vitoria==1)
-                break;
+                
+                if(vitoria==1)
+                    break;
 
 
                 //troca de time no fim do turno
