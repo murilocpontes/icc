@@ -11,14 +11,14 @@ int main(){
         printf("JOGO DA VELHA!!\n(1) Jogar \n(0) Sair \n");
         fflush(stdin);
         fgets(sgameon, 3, stdin);
-        gameon = atoi(sgameon);
-        system("clear");
         
-        if (gameon != 0 && gameon != 1){
+         if (sgameon[0] != '0' && sgameon[0] != '1'){
+            system("clear");
             printf("Erro -> Simbolo incorreto\n");
-            gameon = 1;
             continue;
         }
+        gameon = atoi(sgameon);
+        system("clear");
 
         if (gameon==0)
             break;
