@@ -6,7 +6,6 @@ int main(){
     char simb, sgameon[3], sj[3],sk[3];
     int gameon = 1, vitoria = 0;
     int i, j, k, l, m;
-    int escolha_j, escolha_k;
 
     while (gameon){
         printf("JOGO DA VELHA!!\n(1) Jogar \n(0) Sair \n");
@@ -14,6 +13,9 @@ int main(){
         fgets(sgameon, 3, stdin);
         gameon = atoi(sgameon);
         system("clear");
+
+        if(gameon !=0 || gameon != 1)
+            printf("Erro! Não é isso\n");
 
         if (gameon==0)
             break;
@@ -33,16 +35,16 @@ int main(){
                 system("clear");
                 break;
             }
-                printf("Erro -> Símbolo incorreto\n");
+                printf("Erro -> Simbolo incorreto\n");
         }
-        //inicializa a matriz com 'e' em todas as posicoes
+        //inicializa a matriz com ' ' em todas as posicoes
         for(i=0;i<3;i++){
             for (j=0;j<3;j++){
-                posicoes[i][j] = 'e';
+                posicoes[i][j] = ' ';
             }
         }
 
-        for(i=1;i<10;i++){
+        for(i=1;i<10;i++){ //contador de rodadas
             printf("Rodada %d. Vez de %c.\n",i,simb);
             printf("Digite a posição desejada:\n (1,2,3)Linha\n");
             fgets(sj,3,stdin);
@@ -70,18 +72,10 @@ int main(){
                 //printa o tabuleiro na tela
                 for(l=0;l<3;l++){
                     for(m=0;m<3;m++){
-                        if(posicoes [l][m] == 'e'){
-                            if(m==0 || m==1) 
-                                printf("   │");   
-                            else
-                                printf("   \n");
-                        }
-                        else{
-                            if(m==0 || m==1) 
-                                printf(" %c │", posicoes[l][m]);   
-                            else
-                                printf(" %c \n", posicoes[l][m]);
-                        }
+                        if(m==0 || m==1) 
+                            printf(" %c │", posicoes[l][m]);   
+                        else
+                            printf(" %c \n", posicoes[l][m]);
                     }
                     if (l<2)
                         printf("───┼───┼───\n");
@@ -130,8 +124,17 @@ int main(){
                     simb = 'X';
             }
         }
-            if(vitoria == 1)
-                printf("\nO JOGADOR %c VENCEU!\n\n", simb);
+            if(vitoria == 1){
+                if(simb == 'X'){
+                   printf("\nO JOGADOR X VENCEU!\n");
+                   printf("O JOGADOR O PERDEU!\n\n"); 
+                }
+                else{
+                    printf("\nO JOGADOR O VENCEU!\n");
+                    printf("O JOGADOR X PERDEU!\n\n");
+                }
+            }
+                // printf("\nO JOGADOR %c VENCEU!\n\n", simb);
             else
                 printf("DEU VELHA!\n");
         
