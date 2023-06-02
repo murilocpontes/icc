@@ -3,9 +3,9 @@
 
 int main(){
     char posicoes[3][3];
-    char simb, sgameon[3], sj[3],sk[3];
+    char simb, sgameon[3], si[3],sj[3];
     int gameon = 1, vitoria = 0;
-    int i, j, k, l, m;
+    int i, j, count;
 
     while (gameon){
         printf("JOGO DA VELHA!!\n(1) Jogar \n(0) Sair \n");
@@ -14,8 +14,6 @@ int main(){
         gameon = atoi(sgameon);
         system("clear");
 
-        if(gameon !=0 || gameon != 1)
-            printf("Erro! Não é isso\n");
 
         if (gameon==0)
             break;
@@ -44,46 +42,46 @@ int main(){
             }
         }
 
-        for(i=1;i<10;i++){ //contador de rodadas
-            printf("Rodada %d. Vez de %c.\n",i,simb);
+        for(count=1;count<10;count++){ //contador de rodadas
+            printf("Rodada %d. Vez de %c.\n",count,simb);
             printf("Digite a posição desejada:\n (1,2,3)Linha\n");
-            fgets(sj,3,stdin);
+            fgets(si,3,stdin);
 
             printf("(1,2,3)Coluna\n");
-            fgets(sk,3,stdin);
+            fgets(sj,3,stdin);
 
+            i = atoi(si) - 1;
             j = atoi(sj) - 1;
-            k = atoi(sk) - 1;
 
-            if(j>3 || k>3 || j<0 || k<0) {
+            if(i>3 || j>3 || i<0 || j<0) {
                 printf("Erro -> Numero invalido!\n");
-                i--;
+                count--;
                 continue;
             }
 
-            if(posicoes[j][k] == 'X' || posicoes[j][k] == 'O'){
+            if(posicoes[i][j] == 'X' || posicoes[i][j] == 'O'){
                 printf("Erro -> Posicao ja preenchida!\n");
-                i--;
+                count--;
                 continue;
             }
             else {
-                posicoes[j][k] = simb;
+                posicoes[i][j] = simb;
                 system("clear");
                 //printa o tabuleiro na tela
-                for(l=0;l<3;l++){
-                    for(m=0;m<3;m++){
-                        if(m==0 || m==1) 
-                            printf(" %c │", posicoes[l][m]);   
+                for(i=0;i<3;i++){
+                    for(j=0;j<3;j++){
+                        if(j==0 || j==1) 
+                            printf(" %c │", posicoes[i][j]);   
                         else
-                            printf(" %c \n", posicoes[l][m]);
+                            printf(" %c \n", posicoes[i][j]);
                     }
-                    if (l<2)
+                    if (i<2)
                         printf("───┼───┼───\n");
                 }
                 printf("\n");
 
                 //antes da quinta jogada, n tem como ganhar
-                if(i < 5) {
+                if(count < 5) {
                     if(simb == 'X')
                         simb = 'O';
                     else
@@ -91,31 +89,22 @@ int main(){
                     continue;
                 }
 
-                //teste de condições de vitória
-                if(posicoes[j][0] == posicoes[j][1] && posicoes[j][0] == posicoes [j][2])
-                    vitoria = 1;
-        
-                if(posicoes[0][k] == posicoes[1][k] && posicoes[0][k] == posicoes [2][k])
-                    vitoria = 1;
-    
-                if(j!=1 && k!=1 && k!=j)//fowardslash
-                    if(posicoes[0][2] == posicoes[1][1] && posicoes[0][2] == posicoes [2][0])
-                        vitoria = 1;
-            
-                if(j!=1 && k!=1 && k==j)//backslash
-                    if(posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes [2][2])
-                        vitoria = 1;
-        
-                if(j==1 && k==1){  //ambas diagonais
-                    if(posicoes[0][2] == posicoes[1][1] && posicoes[0][2] == posicoes [2][0])
-                        vitoria = 1;
-                
-                    if(posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes [2][2])
-                        vitoria = 1;
+            for (i=0; i<3; i++){
+                if ((posicoes[i][0] == posicoes[i][1]) && (posicoes[i][0]==posicoes[i][2])&&((posicoes[i][0] == 'X')||(posicoes[i][0] == 'O'))){
+                    vitoria =1;
                 }
-                
-                if(vitoria == 1)
-                    break;
+            }
+            for (j=0; j<3; j++){
+                if ((posicoes[0][j] == posicoes[1][j]) && (posicoes[0][j]==posicoes[2][j]) && ((posicoes[0][j] == 'X')||(posicoes[0][j] == 'O'))){
+                    vitoria = 1;
+                }
+            }
+            if(((posicoes[0][0] == posicoes[1][1] && posicoes[0][0] == posicoes[2][2]) || (posicoes[2][0] == posicoes[1][1] && posicoes[2][0] == posicoes[0][2]))&&((posicoes[1][1] == 'X')||(posicoes[1][1] == 'O'))){
+                vitoria = 1;
+            }
+            if(vitoria==1)
+                break;
+
 
                 //troca de time no fim do turno
                 if(simb == 'X')
@@ -134,7 +123,7 @@ int main(){
                     printf("O JOGADOR X PERDEU!\n\n");
                 }
             }
-                // printf("\nO JOGADOR %c VENCEU!\n\n", simb);
+
             else
                 printf("DEU VELHA!\n");
         
