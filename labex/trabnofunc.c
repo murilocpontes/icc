@@ -55,21 +55,21 @@ int main(){
             printf("(1,2,3)Coluna\n");
             fgets(sj,3,stdin);
 
-            i = atoi(si) - 1;
-            j = atoi(sj) - 1;
-
-            if(i>3 || j>3 || i<0 || j<0) {
-                printf("Erro -> Numero invalido!\n");
+            if((si[0]!='1' && si[0]!='2' && si[0]!='3') || (sj[0]!='1' && sj[0]!='2' && sj[0]!='3')){
+                printf("Erro -> Simbolo invalido!\n");
                 count--;
                 continue;
             }
+
+            i = atoi(si) - 1;
+            j = atoi(sj) - 1;
 
             if(posicoes[i][j] == 'X' || posicoes[i][j] == 'O'){
                 printf("Erro -> Posicao ja preenchida!\n");
                 count--;
                 continue;
             }
-            else {
+            else{
                 posicoes[i][j] = simb;
                 system("clear");
                 //printa o tabuleiro na tela
